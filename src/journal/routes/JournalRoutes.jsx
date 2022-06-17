@@ -1,7 +1,6 @@
-import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import { JournalPages } from './pages/JournalPages'
-
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { JournalPages } from "./../pages/JournalPages.jsx";
 
 export const JournalRoutes = () => {
   return (
@@ -10,5 +9,5 @@ export const JournalRoutes = () => {
 
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
-  )
-}
+  );
+};
