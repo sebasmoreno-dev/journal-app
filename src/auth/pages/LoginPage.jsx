@@ -1,18 +1,27 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { Google } from "@mui/icons-material";
 import { Button, Grid, TextField, Typography, Link } from "@mui/material";
 import { useForm } from "../../hooks";
 import { checkingAuthentication, startGoogleSignIn } from "../../store/auth";
 import { AuthLayout } from "./../layout/AuthLayout.jsx";
+import { useMemo } from "react";
 
 export const LoginPage = () => {
+
+  const { status } = useSelector(state => state.auth);
+
   const dispatch = useDispatch();
 
   const { email, password, onInputChange } = useForm({
     email: "sebas@gmail.com",
     password: "123456",
   });
+
+  /* A hook that is used to memoize a value. It is used to avoid re-rendering the component when the
+  value is not changed. */
+  const isAuthenticated = useMemo(() => status === "checking", [status]);
+
 
   //Async task to login
   const onSubmit = (e) => {
@@ -55,13 +64,23 @@ export const LoginPage = () => {
 
           <Grid container spacing={2} sx={{ mt: 2, mb: 2 }}>
             <Grid item xs={12} sm={6}>
-              <Button type="submit" variant="contained" fullWidth>
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                disabled={isAuthenticated}
+                >
                 Login
               </Button>
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Button onClick={onGoogleLogin} variant="contained" fullWidth>
+              <Button
+                onClick={onGoogleLogin}
+                variant="contained"
+                fullWidth
+                disabled={isAuthenticated}
+                >
                 <Google />
                 <Typography sx={{ ml: 1 }}>Google</Typography>
               </Button>
