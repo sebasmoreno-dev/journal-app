@@ -1,4 +1,4 @@
-import { singInWithGoogle } from "../../firebase/providers";
+import { singInWithGoogle, registerUserWithEmailAndPassword } from "../../firebase/providers";
 import { checkingCredential, login, logout } from "./authSlice";
 
 /**
@@ -11,7 +11,7 @@ export const checkingAuthentication = ( email, password ) => {
   return async ( dispatch) => {
     dispatch(checkingCredential());
   }
-}
+} 
 
 /**
  * It dispatches an action to the reducer to set the loading state to true, then it calls the
@@ -28,5 +28,16 @@ export const startGoogleSignIn = () => {
     if (!result.ok) return dispatch(logout(result.errorMessage));
 
     dispatch(login(result))
+  }
+}
+
+export const startRegisterWithEmailAndPassword = ({ email, password, displayName }) => {
+  return async ( dispatch) => {
+
+    dispatch(checkingCredential());
+
+    const resp = await registerUserWithEmailAndPassword({ email, password, displayName })
+
+    console.log(resp)
   }
 }
