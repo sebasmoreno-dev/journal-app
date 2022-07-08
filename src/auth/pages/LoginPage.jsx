@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Google } from "@mui/icons-material";
 import { Button, Grid, TextField, Typography, Link, Alert } from "@mui/material";
 import { useForm } from "../../hooks";
-import { checkingAuthentication, startGoogleSignIn, startLogintWithEmailPassword } from "../../store/auth";
+import { startGoogleSignIn, startLogintWithEmailPassword } from "../../store/auth";
 import { AuthLayout } from "./../layout/AuthLayout.jsx";
 import { useMemo } from "react";
 
@@ -37,7 +37,10 @@ export const LoginPage = () => {
 
   return (
     <AuthLayout title="Login">
-      <form onSubmit={onSubmit}>
+      <form
+        onSubmit={onSubmit}
+        className='animate__animated animate__fadeIn animate__faster'
+      >
         <Grid container>
           <Grid item xs={12} sx={{ mt: 1 }}>
             <TextField

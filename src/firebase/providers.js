@@ -93,3 +93,8 @@ export const registerUserWithEmailAndPassword = async ({email, password, display
 }
 
 
+export const logoutFirebase = async () => {
+
+  return await FirebaseAuth.signOut();
+}
+
