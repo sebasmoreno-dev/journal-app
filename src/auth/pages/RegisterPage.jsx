@@ -1,6 +1,6 @@
-import { Button, Grid, TextField, Typography, Link } from '@mui/material'
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { Button, Grid, TextField, Typography, Link, Alert } from '@mui/material'
+import React, { useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
 import { useForm } from '../../hooks'
 import { startRegisterWithEmailAndPassword } from '../../store/auth/thunks'
@@ -26,6 +26,9 @@ export const RegisterPage = () => {
   const dispatch = useDispatch();
 
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const { status, errorMessage} = useSelector((state) => state.auth);
+  const isCheckingAuthentication = useMemo(() => status === 'checking', [status]);
 
   const {
     formState, displayName, email, password, onInputChange,
@@ -90,8 +93,20 @@ export const RegisterPage = () => {
             </Grid>
 
             <Grid container spacing={2}  sx={{ mt: 2, mb: 2}}>
+              <Grid
+                item
+                xs={12}
+                /*If it is falsy, then it will not display the element. */
+                display={ !!errorMessage ? '' : 'none'}
+              >
+                <Alert severity="error">
+                  {errorMessage}
+                </Alert>
+              </Grid>
+
               <Grid item xs={12}>
                 <Button
+                  disabled={isCheckingAuthentication}
                   type="submit"
                   variant="contained"
                   fullWidth>
