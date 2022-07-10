@@ -8,7 +8,7 @@ export const journalSlice = createSlice({
         notes: [],
         active: null,
     },
-    //only 
+    //Aqui no se pueden introducir funciones asincronas solo acciones sincronas.
     reducers: {
         addNewNote: (state, action) => {
 
