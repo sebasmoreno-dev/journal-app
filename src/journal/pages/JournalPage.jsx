@@ -1,10 +1,19 @@
+import { useDispatch } from 'react-redux';
 import { NothingSelectedView } from '../views/NothingSelectedView.jsx'
 import { JournalLayout } from '../layout/JournalLayout.jsx'
 import { NoteView } from '../views/NoteView.jsx'
 import { IconButton } from '@mui/material'
 import { AddOutlined } from '@mui/icons-material'
+import { startNewNote } from '../../store/journal/thunks.js';
 
 export const JournalPage = () => {
+
+  const dispatch = useDispatch()
+
+  const onClickNewNote = () => {
+    dispatch(startNewNote())
+  }
+
   return (
     <JournalLayout>
       {/* <Typography variant="body1">
@@ -15,6 +24,7 @@ export const JournalPage = () => {
       {/* <NoteView /> */}
 
       <IconButton
+        onClick={onClickNewNote}
         size="large"
         sx={{
           color: "white",
