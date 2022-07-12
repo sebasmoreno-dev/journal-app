@@ -1,9 +1,12 @@
 //Tareas asincronas
 import { collection, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
+import { addNewNote, setActiveNote, savingNewNote } from './journalSlice';
 
 export const startNewNote = () => {
   return  async (dispatch, getState) => {
+
+    dispatch(savingNewNote());
 
     const { uid } = getState().auth;
 
@@ -15,11 +18,17 @@ export const startNewNote = () => {
 
     /* Creating a new document in the collection `notes` in the database. */
     const newDoc = doc( collection( FirebaseDB, `${ uid }/journal/notes`));
-    const setDocResp = await setDoc( newDoc, newNote);
-    console.log({newDoc, setDocResp});
+    await setDoc( newDoc, newNote);
 
-      //! dispatch
-      //! 1. dispatch( newnNote)
-      //! 2. dispatch( activarNote)
+    newNote.id = newDoc.id;
+
+    // Dispatching the action to update the state with the new note data.
+    
+    dispatch( addNewNote( newNote ));
+    dispatch( setActiveNote( newNote ));
+    
+
+
+
     }
 }

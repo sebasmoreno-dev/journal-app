@@ -3,19 +3,24 @@ import { createSlice } from '@reduxjs/toolkit';
 export const journalSlice = createSlice({
     name: 'journal',
     initialState: {
-        isSaving: true,
+        isSaving: false,
         messageSaved: '',
         notes: [],
         active: null,
     },
     //Aqui no se pueden introducir funciones asincronas solo acciones sincronas.
     reducers: {
-        addNewNote: (state, action) => {
+        savingNewNote: (state) => {
+            state.isSaving = true;
+        },
 
+        addNewNote: (state, action) => {
+            state.notes.push(action.payload);
+            state.isSaving = false;
         },
 
         setActiveNote: (state, action) => {
-
+            state.active = action.payload;
         },
 
         setNotes: (state, action) => {
@@ -40,9 +45,10 @@ export const journalSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
     addNewNote,
+    deleteNoteById,
+    savingNewNote,
     setActiveNote,
     setNotes,
     setSaving,
     updateNote,
-    deleteNoteById
 } = journalSlice.actions;
