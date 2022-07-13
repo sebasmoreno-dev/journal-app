@@ -1,7 +1,8 @@
 //Tareas asincronas
 import { collection, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
-import { addNewNote, setActiveNote, savingNewNote } from './journalSlice';
+import { loadNotes } from '../../helpers/loadNotes';
+import { addNewNote, setActiveNote, savingNewNote, setNotes } from './journalSlice';
 
 export const startNewNote = () => {
   return  async (dispatch, getState) => {
@@ -23,12 +24,22 @@ export const startNewNote = () => {
     newNote.id = newDoc.id;
 
     // Dispatching the action to update the state with the new note data.
-    
+
     dispatch( addNewNote( newNote ));
     dispatch( setActiveNote( newNote ));
-    
-
-
 
     }
+}
+
+
+export const starLoadgingNotes = () => {
+  return async (dispatch, getState) => {
+
+    const { uid } = getState().auth;
+    if (!uid) throw new Error('El uid del usuario no existe');
+
+    const notes = await loadNotes(uid);
+
+    dispatch( setNotes( notes ));
+  }
 }
