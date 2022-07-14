@@ -1,9 +1,25 @@
 import { SavedSearchOutlined } from '@mui/icons-material'
 import { Button, Grid, TextField, Typography } from '@mui/material'
-import React from 'react'
-import { ImageGallery } from '../components/ImageGallery'
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux'
+import { ImageGallery } from '../components/ImageGallery';
+import { useForm } from './../../hooks/useForm';
+
 
 export const NoteView = () => {
+
+  //initial state of the form
+  const { active:note } = useSelector(state => state.journal);
+
+  const { body, title, date, onInputChange, formState } = useForm( note )
+
+  const dateString = useMemo(() => {
+    const newDate = new Date(date);
+    return newDate.toUTCString();
+  }, [date])
+
+
+
   return (
     <>
     <Grid
@@ -14,7 +30,7 @@ export const NoteView = () => {
       className='animate__animated animate__fadeIn animate__faster'
     >
       <Grid item>
-        <Typography fontSize={ 39 } fontWeight="light" >28 de agoto, 2023</Typography>
+        <Typography fontSize={ 39 } fontWeight="light" >{ dateString }</Typography>
       </Grid>
 
       <Grid item>
@@ -32,6 +48,9 @@ export const NoteView = () => {
           fullWidth
           placeholder="Ingresa un titulo"
           sx={{ border: "none", mb: 1}}
+          name="title"
+          value={title}
+          onChange={onInputChange}
         />
 
         <TextField
@@ -42,6 +61,9 @@ export const NoteView = () => {
           placeholder="¿Qué sucedio hoy?"
           minRows={5}
           sx={{ border: "none", mb: 1}}
+          name="body"
+          value={body}
+          onChange={onInputChange}
         />
       </Grid>
 

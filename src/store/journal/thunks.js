@@ -43,3 +43,4 @@ export const starLoadgingNotes = () => {
     dispatch( setNotes( notes ));
   }
 }
+

@@ -7,16 +7,19 @@ import { startGoogleSignIn, startLogintWithEmailPassword } from "../../store/aut
 import { AuthLayout } from "./../layout/AuthLayout.jsx";
 import { useMemo } from "react";
 
+
+const formData = {
+    email: "",
+    password: "",
+}
+
 export const LoginPage = () => {
 
   const { status, errorMessage } = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
 
-  const { email, password, onInputChange } = useForm({
-    email: "sebas123@gmail.com",
-    password: "123456",
-  });
+  const { email, password, onInputChange } = useForm( formData );
 
   /* A hook that is used to memoize a value. It is used to avoid re-rendering the component when the
   value is not changed. */
