@@ -1,30 +1,37 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { Google } from "@mui/icons-material";
-import { Button, Grid, TextField, Typography, Link, Alert } from "@mui/material";
 import { useForm } from "../../hooks";
-import { startGoogleSignIn, startLogintWithEmailPassword } from "../../store/auth";
 import { AuthLayout } from "./../layout/AuthLayout.jsx";
 import { useMemo } from "react";
-
+import {
+  startGoogleSignIn,
+  startLogintWithEmailPassword,
+} from "../../store/auth";
+import {
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  Link,
+  Alert,
+} from "@mui/material";
 
 const formData = {
-    email: "",
-    password: "",
-}
+  email: "",
+  password: "",
+};
 
 export const LoginPage = () => {
-
-  const { status, errorMessage } = useSelector(state => state.auth);
+  const { status, errorMessage } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
-  const { email, password, onInputChange } = useForm( formData );
+  const { email, password, onInputChange } = useForm(formData);
 
   /* A hook that is used to memoize a value. It is used to avoid re-rendering the component when the
   value is not changed. */
   const isAuthenticated = useMemo(() => status === "checking", [status]);
-
 
   //Async task to login
   const onSubmit = (e) => {
@@ -37,12 +44,11 @@ export const LoginPage = () => {
     dispatch(startGoogleSignIn());
   };
 
-
   return (
     <AuthLayout title="Login">
       <form
         onSubmit={onSubmit}
-        className='animate__animated animate__fadeIn animate__faster'
+        className="animate__animated animate__fadeIn animate__faster"
       >
         <Grid container>
           <Grid item xs={12} sx={{ mt: 1 }}>
@@ -69,15 +75,9 @@ export const LoginPage = () => {
             />
           </Grid>
 
-          <Grid container sx={{ mt: 2}}>
-            <Grid
-                item
-                xs={12}
-                display={ !!errorMessage ? '' : 'none'}
-              >
-                <Alert severity="error">
-                  {errorMessage}
-                </Alert>
+          <Grid container sx={{ mt: 2 }}>
+            <Grid item xs={12} display={!!errorMessage ? "" : "none"}>
+              <Alert severity="error">{errorMessage}</Alert>
             </Grid>
           </Grid>
 
@@ -88,7 +88,7 @@ export const LoginPage = () => {
                 variant="contained"
                 fullWidth
                 disabled={isAuthenticated}
-                >
+              >
                 Login
               </Button>
             </Grid>
@@ -99,7 +99,7 @@ export const LoginPage = () => {
                 variant="contained"
                 fullWidth
                 disabled={isAuthenticated}
-                >
+              >
                 <Google />
                 <Typography sx={{ ml: 1 }}>Google</Typography>
               </Button>
