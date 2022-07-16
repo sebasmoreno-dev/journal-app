@@ -1,6 +1,7 @@
 //Tareas asincronas
 import { collection, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
+import { fileUpload } from '../../helpers/fileUpload';
 import { loadNotes } from '../../helpers/loadNotes';
 import { addNewNote, setActiveNote, savingNewNote, setNotes, setSaving, updateNote } from './journalSlice';
 
@@ -64,4 +65,15 @@ export const startSaveNote = () => {
     dispatch( updateNote( note ));
 
   }
+}
+
+export const startUploadingFiles = (files = []) => {
+  return async ( dispatch ) => {
+    dispatch(setSaving());
+
+    await fileUpload( files[0] );
+
+    
+  }
+
 }
