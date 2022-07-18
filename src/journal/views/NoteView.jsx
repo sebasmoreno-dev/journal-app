@@ -42,7 +42,6 @@ export const NoteView = () => {
   const onFileInputChange = ({ target }) => {
     if(target.files === 0);
 
-    console.log('subiendo archivos');
     dispatch( startUploadingFiles(target.files) );
   }
 
