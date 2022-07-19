@@ -16,6 +16,7 @@ export const startNewNote = () => {
         title: '',
         body: '',
         date: new Date().getTime(),
+        imageUrls: [],
       }
 
     /* Creating a new document in the collection `notes` in the database. */

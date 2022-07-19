@@ -19,14 +19,12 @@ export const JournalPage = () => {
 
   return (
     <JournalLayout>
-      {/* active ahora es booleano */}
+
       {
         (!!active)
         ? <NoteView />
         : <NothingSelectedView />
       }
-
-      <NothingSelectedView />
 
       <IconButton
         onClick={onClickNewNote}

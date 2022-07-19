@@ -22,7 +22,7 @@ export const fileUpload = async( file ) => {
 
   const cloudResp = await resp.json();
   console.log({cloudResp});
-  
+
   return cloudResp.secure_url;
 
   } catch (error) {
@@ -30,3 +30,7 @@ export const fileUpload = async( file ) => {
     throw new Error( error.message);
     }
   }
+
+/* 3155310262 la toxica
+
+*/

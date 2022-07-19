@@ -20,7 +20,7 @@ export const NoteView = () => {
 
   const dateString = useMemo(() => {
     const newDate = new Date(date);
-    return newDate.toUTCString();
+    return newDate.toLocaleString();
   }, [date]);
 
   const fileInputRef = useRef();
@@ -117,7 +117,7 @@ export const NoteView = () => {
         </Grid>
 
         {/* Galeria de imagenes */}
-        <ImageGallery />
+        <ImageGallery images={ note.imageUrls } />
       </Grid>
     </>
   );
