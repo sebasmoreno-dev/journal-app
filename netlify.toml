@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://sebasmoreno-dev-journal.netlify.app"
+  to = "https://sebasmoreno-dev-journal.netlify.app/auth/login"
+  status = 301
+  force = true
