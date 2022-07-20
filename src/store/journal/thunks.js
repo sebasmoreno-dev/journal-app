@@ -1,9 +1,9 @@
 //Tareas asincronas
-import { collection, doc, setDoc } from 'firebase/firestore/lite';
+import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
 import { fileUpload } from '../../helpers/fileUpload';
 import { loadNotes } from '../../helpers/loadNotes';
-import { addNewNote, setActiveNote, savingNewNote, setNotes, setSaving, updateNote, setPhotosToActiveNote } from './journalSlice';
+import { addNewNote, setActiveNote, savingNewNote, setNotes, setSaving, updateNote, setPhotosToActiveNote, deleteNoteById } from './journalSlice';
 
 export const startNewNote = () => {
   return  async (dispatch, getState) => {
@@ -83,4 +83,20 @@ export const startUploadingFiles = (files = []) => {
 
   }
 
+}
+
+
+export const startDeletingNote = () => {
+  return async ( dispatch, getState ) => {
+
+    const { uid } = getState().auth;
+    const { active:note } = getState().journal;
+
+    /* Creating a reference to the document in the collection `notes` in the database. */
+    const docRef = doc( FirebaseDB, `${ uid }/journal/notes/${ note.id }`);
+    await deleteDoc( docRef );
+
+    dispatch( deleteNoteById( note.id ));
+
+  }
 }
