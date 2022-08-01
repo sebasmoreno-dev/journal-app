@@ -1,3 +1,6 @@
+//Funciones asincronas
+
+
 import { singInWithGoogle, registerUserWithEmailAndPassword, loginWithEmailPassword, logoutFirebase } from "../../firebase/providers";
 import { clearNotesLogout } from "../journal/journalSlice";
 import { checkingCredential, login, logout } from "./authSlice";
