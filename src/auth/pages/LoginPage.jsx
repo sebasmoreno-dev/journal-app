@@ -98,6 +98,7 @@ export const LoginPage = () => {
                 onClick={onGoogleLogin}
                 variant="contained"
                 fullWidth
+                aria-label="google-btn"
                 disabled={isAuthenticated}
               >
                 <Google />
