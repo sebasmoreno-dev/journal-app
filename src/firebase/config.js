@@ -2,9 +2,14 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore/lite";
+import { getEnvironments } from "../helpers/getEnvironments";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+const env = getEnvironments();
+console.log(env);
+
+//console.log( process.env);
 // Your web app's Firebase configuration
 // Dev/pro
 /* const firebaseConfig = {
