@@ -9,9 +9,11 @@ import { notAuthenticatedState } from "../../fixtures/authFixtures";
 
 
 const mockStartGoogleSignIn = jest.fn();
+const mockStartLoginWithEmailPassword = jest.fn();
 
 jest.mock('../../../src/store/auth/thunks', () => ({
-  startGoogleSignIn: () => mockStartGoogleSignIn
+  startGoogleSignIn: () => mockStartGoogleSignIn,
+  startLoginWithEmailPassword: () => mockStartLoginWithEmailPassword,
 }));
 
 const store = configureStore({
@@ -53,5 +55,31 @@ describe('Pruebas en LoginPage', () => {
     fireEvent.click( googleBtn );
 
     expect(mockStartGoogleSignIn).toHaveBeenCalled();
+  });
+
+  test('Submit debe de llamar startLoginWithEmailPassword', () => {
+
+    const email = 'sebas123@google.com';
+    const password = '123456';
+
+    render(
+      <Provider store={ store }>
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const emailField = screen.getByRole('textbox', { name: 'Correo'})
+    fireEvent.change( emailField, { target: { name: 'email', value: email }});
+
+    const passwordField = screen.getByTestId('password', { name: 'Contraseña'})
+    fireEvent.change( passwordField, { target: { name: 'password', value: password }});
+
+    const loginForm = screen.getByLabelText('submit-form')
+    fireEvent.submit( loginForm );
+
+
+    
   })
 })

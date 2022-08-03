@@ -6,7 +6,7 @@ import { AuthLayout } from "./../layout/AuthLayout.jsx";
 import { useMemo } from "react";
 import {
   startGoogleSignIn,
-  startLogintWithEmailPassword,
+  startLoginWithEmailPassword,
 } from "../../store/auth";
 import {
   Button,
@@ -37,7 +37,7 @@ export const LoginPage = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     //
-    dispatch(startLogintWithEmailPassword({ email, password }));
+    dispatch(startLoginWithEmailPassword({ email, password }));
   };
 
   const onGoogleLogin = () => {
@@ -48,6 +48,7 @@ export const LoginPage = () => {
   return (
     <AuthLayout title="Login">
       <form
+        aria-label="submit-form"
         onSubmit={onSubmit}
         className="animate__animated animate__fadeIn animate__faster"
       >
@@ -71,6 +72,9 @@ export const LoginPage = () => {
               placeholder="Contraseña"
               fullWidth
               name="password"
+              inputProps={{
+                'data-testid': 'password'
+              }}
               value={password}
               onChange={onInputChange}
             />
